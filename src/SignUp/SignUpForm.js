@@ -43,26 +43,28 @@ class SignUpForm extends Component {
   handlePasswordChange = this.handleInputChange('password');
 
   // handle the form submission...
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = () => {
+    return e => {
+      e.preventDefault();
 
-    const usernameErrors = this.validateUsernameField();
-    const passwordErrors = this.validatePasswordField();
+      const usernameErrors = this.validateUsernameField();
+      const passwordErrors = this.validatePasswordField();
 
-    this.setState({
-      errors: {
-        ...this.state.errors,
-        username: usernameErrors,
-        password: passwordErrors,
-      },
-    });
-
-    if (Array.concat(usernameErrors, passwordErrors).length === 0) { // is form valid
-      this.props.onSubmit({
-        username: this.state.username,
-        password: this.state.password,
+      this.setState({
+        errors: {
+          ...this.state.errors,
+          username: usernameErrors,
+          password: passwordErrors,
+        },
       });
-    }
+
+      if (Array.concat(usernameErrors, passwordErrors).length === 0) { // is form valid
+        this.props.onSubmit({
+          username: this.state.username,
+          password: this.state.password,
+        });
+      }
+    };
   };
 
   validateUsernameField = () => {
@@ -152,13 +154,16 @@ class SignUpForm extends Component {
       <div>
         <Form 
           state={this.state}
-          submit={this.handleSubmit}
+          onSubmit={this.handleSubmit}
           usernameChange={this.handleUsernameChange}
           pwdChange={this.handlePasswordChange}
           inputChange={this.handleInputChange}
           pwdConditions={this.errorsPWD(passwordErrors)}
           loads={isLoading}
           errorMsg={errorMessage}
+          displayFieldErrors={this.renderFieldErrors}
+          user={this.validateUsernameField}
+          pwd={this.validatePasswordField}
         />
         {/* <form onSubmit={this.handleSubmit}>
 

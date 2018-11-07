@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Input } from 'react-toolbox/lib/input';
-import * as styles from './Form.scss';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import FullWidthButton from 'components/FullWidthButton';
-import FormError from './FormError.js';
+import FormError from './FormError';
 
 const form = (props) => {
     return (
         <div>
-            <form onSubmit={props.submit}>
+            <form onSubmit={props.onSubmit}>
 
             <Input
               label="Username"
@@ -17,6 +16,8 @@ const form = (props) => {
               value={props.state.username}
             />
 
+            {props.displayFieldErrors("Username")}
+
             <Input
               label="Password"
               type="password"
@@ -24,6 +25,8 @@ const form = (props) => {
               value={props.state.password}
               className="pwdField"
             />
+
+            {props.displayFieldErrors("Password")}
 
             {props.pwdConditions}
 
@@ -38,7 +41,7 @@ const form = (props) => {
                 raised
                 primary
               />
-            )}
+            )}            
             <FormError error={props.errorMsg} />
             
             </form>
