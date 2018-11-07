@@ -2,10 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import { Input } from 'react-toolbox/lib/input';
 import FullWidthButton from 'components/FullWidthButton';
 import FormError from 'components/FormError';
+import Form from 'components/Form';
 import _curry from 'lodash/curry';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import _identity from 'lodash/identity';
-import * as style from './SignUpForm.scss'
+import * as style from './SignUpForm.scss';
 
 class SignUpForm extends Component {
 
@@ -149,7 +150,19 @@ class SignUpForm extends Component {
     
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <Form 
+          state={this.state}
+          submit={this.handleSubmit}
+          usernameChange={this.handleUsernameChange}
+          pwdConditions={this.handlePasswordChange}
+          pwdErrors={this.passwordErrors}
+          inputChange={this.handleInputChange}
+          pwdErrors={this.errorsPWD}
+          loads={isLoading}
+          errorMsg={errorMessage}
+          test="lolzi"
+        />
+        {/* <form onSubmit={this.handleSubmit}>
 
           <Input
             label="Username"
@@ -185,7 +198,7 @@ class SignUpForm extends Component {
           )}
           <FormError error={errorMessage} />
 
-        </form>
+        </form> */}
       </div>
     );
   }
