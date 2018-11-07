@@ -1,18 +1,13 @@
-@import '../App/App';
-
 ul{
     list-style-type: none;
     font-size: 13px;
 }
 
-.success{
-    color: green !important;
-}
-
-.unsuccess{
-    color: $accent1 !important;
-}
-
-.validatePWD {
-    color: green !important;
+li {
+    &.unsuccess{
+        color: red;
+    }
+    &.success{
+        color: green;
+    }
 }

@@ -5,7 +5,7 @@ import FormError from 'components/FormError';
 import _curry from 'lodash/curry';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import _identity from 'lodash/identity';
-import './SignUpForm.scss'
+import * as style from './SignUpForm.scss'
 
 class SignUpForm extends Component {
 
@@ -82,21 +82,36 @@ class SignUpForm extends Component {
     if (value.length < 8) {
       errors.push('The password should be at least 8 characters long');
     }
+    else{
+      if (document.getElementById("er1")){document.getElementById("er1").className = style.success;}
+    }
 
     if (!/(?=.*?[a-z])/.test(value)) { // lowercase
       errors.push('The password should contain at least one lowercase character');
+    }
+    else{
+      if (document.getElementById("er2")){document.getElementById("er2").className = style.success;}
     }
 
     if (!/(?=.*?[A-Z])/.test(value)) { // uppercase
       errors.push('The password should contain at least one uppercase character');
     }
+    else{
+      if (document.getElementById("er3")){document.getElementById("er3").className = style.success;}
+    }
 
     if (!/(?=.*?[0-9])/.test(value)) { // digit
       errors.push('The password should contain at least one digit character');
     }
+    else{
+      if (document.getElementById("er4")){document.getElementById("er4").className = style.success;}
+    }
 
     if (!/(?=.*?[#?!@$%^&*-])/.test(value)) { // symbol
       errors.push('The password should contain at least one symbol');
+    }
+    else{
+      if (document.getElementById("er5")){document.getElementById("er5").className = style.success;}
     }
 
     return errors;
@@ -109,8 +124,7 @@ class SignUpForm extends Component {
     return errors.length ? <FormError error={errors} /> : null;
   };
 
-  goodPWD = errors => {
-    
+  errorsPWD = errors => {
     if (errors.length == 0) {
       return (
         <div className="validationPWD">
@@ -120,11 +134,11 @@ class SignUpForm extends Component {
     }
     return (
       <ul>
-        <li id="er1" className="unsuccess">The password should be at least 8 characters long</li>
-        <li id="er2" className="unsuccess">The password should contain at least one lowercase character</li>
-        <li id="er3" className="unsuccess">The password should contain at least one uppercase character</li>
-        <li id="er4" className="unsuccess">The password should contain at least one digit character</li>
-        <li id="er5" className="unsuccess">The password should contain at least one symbol</li>
+        <li id="er1" className={style.unsuccess}>The password should be at least 8 characters long</li>
+        <li id="er2" className={style.unsuccess}>The password should contain at least one lowercase character</li>
+        <li id="er3" className={style.unsuccess}>The password should contain at least one uppercase character</li>
+        <li id="er4" className={style.unsuccess}>The password should contain at least one digit character</li>
+        <li id="er5" className={style.unsuccess}>The password should contain at least one symbol</li>
       </ul>
     );
   }
@@ -155,13 +169,7 @@ class SignUpForm extends Component {
           />
           {this.renderFieldErrors('password')}
 
-          {/* <ul>
-            {passwordErrors.map(function (error){
-              return (<li>{error}</li>)
-            })}
-          </ul> */}
-
-          {this.goodPWD(passwordErrors)}
+          {this.errorsPWD(passwordErrors)}
 
           {isLoading ? (
             <div>

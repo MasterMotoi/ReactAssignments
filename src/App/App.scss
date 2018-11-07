@@ -11,6 +11,7 @@ body {
   background-color: $canvasColor;
   font-family: Roboto, sans-serif;
   font-size: 1.6rem;
+  color: $textColor;
 
   display: flex;
   flex-direction: column;
@@ -20,14 +21,12 @@ body {
 a, abbr, address, article, aside, audio, b, blockquote, body, caption, cite,
 code, dd, del, dfn, dialog, div, dl, dt, em, fieldset, figure, footer, form,
 h2, h3, h4, h5, h6, header, hgroup, hr, html, i, iframe, img, ins, kbd, label,
-legend, mark, menu, nav, object, ol, p, pre, q, samp, section, small, span,
+legend, mark, menu, nav, object li, ol, p, pre, q, samp, section, small, span,
 strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, ul, var, video {
   padding: 0;
   margin: 0;
   border: 0;
   outline: 0;
-
-  color: $textColor;
 }
 
 *, *:before, *:after {
