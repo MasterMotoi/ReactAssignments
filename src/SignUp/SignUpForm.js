@@ -6,7 +6,6 @@ import _curry from 'lodash/curry';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import _identity from 'lodash/identity';
 import './SignUpForm.scss'
-import '../App/App.scss'
 
 class SignUpForm extends Component {
 
@@ -119,7 +118,15 @@ class SignUpForm extends Component {
         </div>
       );
     }
-    return "";
+    return (
+      <ul>
+        <li id="er1" className="unsuccess">The password should be at least 8 characters long</li>
+        <li id="er2" className="unsuccess">The password should contain at least one lowercase character</li>
+        <li id="er3" className="unsuccess">The password should contain at least one uppercase character</li>
+        <li id="er4" className="unsuccess">The password should contain at least one digit character</li>
+        <li id="er5" className="unsuccess">The password should contain at least one symbol</li>
+      </ul>
+    );
   }
 
   render() {
@@ -153,12 +160,6 @@ class SignUpForm extends Component {
               return (<li>{error}</li>)
             })}
           </ul> */}
-
-          <ul>
-            <li id="er1" className="unsuccess">Error 1</li>
-            <li id="er2" className="unsuccess">Error 2</li>
-            <li id="er3" className="unsuccess">Error 3</li>
-          </ul>
 
           {this.goodPWD(passwordErrors)}
 
