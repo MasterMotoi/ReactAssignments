@@ -25,11 +25,7 @@ const form = (props) => {
               className="pwdField"
             />
 
-            <ul>
-                <li>{props.test}</li>
-            </ul>
-
-            {props.pwdConditions(props.pwdErrors)}
+            {props.pwdConditions}
 
             {props.loads ? (
               <div>

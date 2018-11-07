@@ -154,13 +154,11 @@ class SignUpForm extends Component {
           state={this.state}
           submit={this.handleSubmit}
           usernameChange={this.handleUsernameChange}
-          pwdConditions={this.handlePasswordChange}
-          pwdErrors={this.passwordErrors}
+          pwdChange={this.handlePasswordChange}
           inputChange={this.handleInputChange}
-          pwdErrors={this.errorsPWD}
+          pwdConditions={this.errorsPWD(passwordErrors)}
           loads={isLoading}
           errorMsg={errorMessage}
-          test="lolzi"
         />
         {/* <form onSubmit={this.handleSubmit}>
 
