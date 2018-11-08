@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import { Input } from 'react-toolbox/lib/input';
 import FullWidthButton from 'components/FullWidthButton';
 import FormError from 'components/FormError';
-import Form from 'components/Form';
 import _curry from 'lodash/curry';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import _identity from 'lodash/identity';
@@ -43,28 +42,26 @@ class SignUpForm extends Component {
   handlePasswordChange = this.handleInputChange('password');
 
   // handle the form submission...
-  handleSubmit = () => {
-    return e => {
-      e.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-      const usernameErrors = this.validateUsernameField();
-      const passwordErrors = this.validatePasswordField();
+    const usernameErrors = this.validateUsernameField();
+    const passwordErrors = this.validatePasswordField();
 
-      this.setState({
-        errors: {
-          ...this.state.errors,
-          username: usernameErrors,
-          password: passwordErrors,
-        },
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        username: usernameErrors,
+        password: passwordErrors,
+      },
+    });
+
+    if (Array.concat(usernameErrors, passwordErrors).length === 0) { // is form valid
+      this.props.onSubmit({
+        username: this.state.username,
+        password: this.state.password,
       });
-
-      if (Array.concat(usernameErrors, passwordErrors).length === 0) { // is form valid
-        this.props.onSubmit({
-          username: this.state.username,
-          password: this.state.password,
-        });
-      }
-    };
+    }
   };
 
   validateUsernameField = () => {
@@ -78,7 +75,7 @@ class SignUpForm extends Component {
     return errors;
   };
 
-  validatePasswordField = () => {
+  validatePasswordField = () => { // for each condition, if the password respect it, the art of the list corresponding will become green
     const errors = [];
     const value = this.state.password;
     
@@ -127,7 +124,7 @@ class SignUpForm extends Component {
     return errors.length ? <FormError error={errors} /> : null;
   };
 
-  errorsPWD = errors => {
+  errorsPWD = errors => { //display either the conditions for the password or a message if it's secure enough
     if (errors.length == 0) {
       return (
         <div className="validationPWD">
@@ -146,26 +143,14 @@ class SignUpForm extends Component {
     );
   }
 
-  render() {
+  form = () => { //Component with the form : reusable
     const { isLoading, errorMessage } = this.props;
     const passwordErrors = this.validatePasswordField();
-    
+
     return (
       <div>
-        <Form 
-          state={this.state}
-          onSubmit={this.handleSubmit}
-          usernameChange={this.handleUsernameChange}
-          pwdChange={this.handlePasswordChange}
-          inputChange={this.handleInputChange}
-          pwdConditions={this.errorsPWD(passwordErrors)}
-          loads={isLoading}
-          errorMsg={errorMessage}
-          displayFieldErrors={this.renderFieldErrors}
-          user={this.validateUsernameField}
-          pwd={this.validatePasswordField}
-        />
-        {/* <form onSubmit={this.handleSubmit}>
+
+        <form onSubmit={this.handleSubmit}>
 
           <Input
             label="Username"
@@ -177,7 +162,7 @@ class SignUpForm extends Component {
           {this.renderFieldErrors('username')}
 
           <Input
-            label="Password"
+            label="Password" 
             type="password"
             onChange={this.handlePasswordChange}
             value={this.state.password}
@@ -201,7 +186,16 @@ class SignUpForm extends Component {
           )}
           <FormError error={errorMessage} />
 
-        </form> */}
+        </form>
+      </div>
+    );
+  }
+
+  render() {
+    
+    return (
+      <div>
+        {this.form()}
       </div>
     );
   }
